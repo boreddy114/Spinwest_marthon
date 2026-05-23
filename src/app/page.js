@@ -127,6 +127,34 @@ export default function Home() {
         <p className="footer-info">
           Celebrating 25 years of excellence in patient care at Spine West. Specializing in spine, orthopedics, physical medicine, sports injuries, and regenerative medicine to keep runners on the move.
         </p>
+
+        {/* Supporting Sponsors Section */}
+        <div style={{ marginTop: '2rem', marginBottom: '2.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
+          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-text-muted-light)', marginBottom: '1.25rem', fontWeight: '800' }}>
+            Steamboat Springs Marathon Partners & Sponsors
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px 20px', opacity: 0.9 }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Alpine Bank <span style={{ fontSize: '0.65rem', fontWeight: '600', opacity: 0.6 }}>(Presenting)</span>
+            </span>
+            <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#ffb300', background: 'rgba(255,179,0,0.08)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,179,0,0.15)' }}>
+              Spine West <span style={{ fontSize: '0.65rem', fontWeight: '600', opacity: 0.8 }}>(Photo Sponsor)</span>
+            </span>
+            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#ffb74d', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Honey Stinger
+            </span>
+            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#e0e0e0', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Smartwool
+            </span>
+            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#4fc3f7', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              UCHealth YVMC
+            </span>
+            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#a5d6a7', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Christy Sports
+            </span>
+          </div>
+        </div>
+
         <div className="footer-credits">
           <p>© {new Date().getFullYear()} Spine West. All rights reserved. | <a href="/login">Volunteer Console</a></p>
           <p style={{ fontSize: '0.75rem', marginTop: '8px', opacity: 0.6 }}>

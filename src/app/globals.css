@@ -545,7 +545,9 @@ a {
 .kiosk-wrapper {
   position: fixed;
   inset: 0;
-  background: var(--color-bg-dark);
+  background: linear-gradient(135deg, rgba(18, 25, 38, 0.85) 0%, rgba(26, 47, 76, 0.92) 100%),
+              url('/steamboat_marathon_bg.png') no-repeat center center;
+  background-size: cover;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -553,12 +555,13 @@ a {
 }
 
 .kiosk-header {
-  background: var(--color-slate-black);
+  background: rgba(26, 47, 76, 0.8);
+  backdrop-filter: blur(12px);
   padding: 1.25rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .kiosk-header-logo {
@@ -568,29 +571,32 @@ a {
 }
 
 .kiosk-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  padding: 0.6rem 1.4rem;
   border-radius: 30px;
   cursor: pointer;
   transition: var(--transition-smooth);
+  backdrop-filter: blur(5px);
 }
 
 .kiosk-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 .kiosk-btn.primary {
-  background: var(--color-blue);
-  border-color: var(--color-blue);
+  background: var(--color-forest);
+  border-color: var(--color-forest);
 }
 
 .kiosk-btn.primary:hover {
-  background: var(--color-green);
-  border-color: var(--color-green);
+  background: var(--color-sky-blue);
+  border-color: var(--color-sky-blue);
+  box-shadow: 0 4px 12px rgba(2, 136, 209, 0.4);
 }
 
 /* Camera viewport container */
@@ -610,14 +616,15 @@ a {
   object-fit: contain;
   border-radius: var(--border-radius-lg);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 3px solid rgba(255, 255, 255, 0.15);
   transition: transform 0.1s ease-out;
 }
 
 /* Capture controls HUD */
 .kiosk-hud {
-  background: var(--color-slate-black);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(26, 47, 76, 0.85);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
@@ -629,10 +636,10 @@ a {
   display: flex;
   align-items: center;
   gap: 15px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   padding: 8px 20px;
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .zoom-btn {
@@ -668,15 +675,20 @@ a {
   height: 80px;
   border-radius: 50%;
   background: white;
-  border: 8px solid rgba(255, 255, 255, 0.2);
+  border: 8px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
   transition: var(--transition-smooth);
+}
+
+.trigger-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(112, 182, 44, 0.5);
 }
 
 .trigger-btn:active {
   transform: scale(0.92);
-  border-color: var(--color-blue);
+  border-color: var(--color-sky-blue);
 }
 
 /* Upload Queue Panel */

@@ -155,8 +155,17 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
         <>
           {/* Header */}
           <div className="kiosk-header">
-            <div className="kiosk-header-logo">
-              <SpineWestKioskLogo />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              {/* Steamboat Springs Running Series Badge */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 179, 0, 0.15)', border: '1px solid rgba(255, 179, 0, 0.3)', padding: '6px 12px', borderRadius: '20px' }}>
+                <span style={{ fontSize: '1.1rem' }}>⛰️</span>
+                <span style={{ fontSize: '0.8rem', fontWeight: '800', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.05em', color: 'var(--color-gold)' }}>STEAMBOAT RUNNING SERIES</span>
+              </div>
+              <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
+              {/* Spine West Logo */}
+              <div className="kiosk-header-logo">
+                <SpineWestKioskLogo />
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button 
