@@ -845,10 +845,21 @@ a {
   
   .hero-banner {
     padding: 2.5rem 1.5rem;
+    margin-bottom: 2rem;
   }
   
   .hero-title {
     font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sponsor-chip {
+    padding: 8px 14px;
+    font-size: 0.8rem;
   }
   
   .premium-gallery-grid {
@@ -863,5 +874,97 @@ a {
   .overlay-action-btn {
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
+  }
+
+  /* Login Screen Responsive */
+  .login-card {
+    padding: 2rem 1.5rem;
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Kiosk full bleed camera on mobile */
+  .kiosk-wrapper {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+
+  .kiosk-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    border-bottom: none;
+    z-index: 10;
+    padding: 0.75rem 1rem;
+    backdrop-filter: none;
+  }
+
+  .kiosk-header-logo {
+    transform: scale(0.85);
+    transform-origin: left center;
+  }
+
+  .camera-feed-container {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .camera-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Full bleed preview */
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .kiosk-hud {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    border-top: none;
+    z-index: 10;
+    padding: 1.5rem 1rem;
+    backdrop-filter: none;
+    gap: 1rem;
+  }
+
+  .zoom-controls-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+  }
+
+  .trigger-btn {
+    width: 70px;
+    height: 70px;
+    border-width: 6px;
+  }
+
+  /* Kiosk Review Mode Responsive */
+  .review-overlay {
+    padding: 1rem;
+  }
+  
+  .review-card-container {
+    padding: 1.5rem;
+    border-radius: var(--border-radius-md);
+  }
+  
+  .review-thumbnails-row {
+    margin-bottom: 1.5rem;
+  }
+  
+  .review-thumb-wrapper {
+    width: 120px; /* smaller thumbnails on mobile */
   }
 }
