@@ -840,47 +840,67 @@ a {
 .review-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(18, 25, 38, 0.75);
-  backdrop-filter: blur(16px);
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.85) 0%, rgba(7, 9, 19, 0.95) 100%);
+  backdrop-filter: blur(20px);
   z-index: 1001;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 2rem;
+  padding: 3rem 2rem;
 }
 
 .review-card-container {
-  max-width: 800px;
+  max-width: 500px;
   width: 100%;
   margin: auto;
-  background: rgba(27, 38, 54, 0.85);
-  backdrop-filter: blur(24px);
-  border-radius: var(--border-radius-lg);
-  padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  background: rgba(30, 41, 59, 0.45);
+  backdrop-filter: blur(30px);
+  border-radius: 24px;
+  padding: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   text-align: center;
+}
+
+.review-card-container h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(to right, #ffffff 30%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
 }
 
 .review-thumbnails-row {
   display: flex;
+  justify-content: center;
   gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 20px;
-  margin-bottom: 2.5rem;
+  margin: 2rem 0;
 }
 
 .review-thumb-wrapper {
   position: relative;
-  width: 180px;
-  flex-shrink: 0;
-  border-radius: var(--border-radius-md);
+  width: 150px;
+  aspect-ratio: 1402 / 1122;
+  border-radius: 16px;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.review-thumb-wrapper:hover {
+  transform: scale(1.03);
+  border-color: rgba(140, 198, 63, 0.4);
 }
 
 .review-thumb-wrapper img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -888,18 +908,81 @@ a {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #ef4444;
+  background: rgba(239, 68, 68, 0.95);
+  backdrop-filter: blur(4px);
   color: white;
   border: none;
   border-radius: 50%;
   width: 28px;
   height: 28px;
   cursor: pointer;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  transition: all 0.2s ease;
+  z-index: 20;
+}
+
+.thumb-delete-btn:hover {
+  background: #ef4444;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.6);
+}
+
+.review-actions-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.review-actions-wrapper .kiosk-btn {
+  width: 100%;
+  padding: 0.9rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Secondary Button ("Take More") */
+.review-actions-wrapper .kiosk-btn:not(.primary) {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.review-actions-wrapper .kiosk-btn:not(.primary):hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Primary Button ("Upload") */
+.review-actions-wrapper .kiosk-btn.primary {
+  background: linear-gradient(135deg, #8cc63f 0%, #72a32f 100%);
+  border: none;
+  box-shadow: 0 8px 24px rgba(140, 198, 63, 0.3);
+}
+
+.review-actions-wrapper .kiosk-btn.primary:hover {
+  background: linear-gradient(135deg, #99d64a 0%, #80b535 100%);
+  box-shadow: 0 12px 28px rgba(140, 198, 63, 0.45);
+  transform: translateY(-2px);
+}
+
+.review-actions-wrapper .kiosk-btn:active {
+  transform: translateY(0);
 }
 
 .kiosk-status-text {
@@ -1195,3 +1278,51 @@ a {
     font-size: 0.95rem;
   }
 }
+
+/* ==========================================
+   DYNAMIC SOUVENIR FRAME (FRONTEND VIEW)
+   Used for rendering the frame dynamically
+   around raw photos taken before the frame
+   was baked into the canvas.
+   ========================================== */
+.dynamic-souvenir-frame {
+  width: 100%;
+  position: relative;
+  aspect-ratio: 1402 / 1122;
+  background-color: #fdfdfc;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.dynamic-frame-image-container {
+  position: absolute;
+  left: 8.9158%;
+  top: 25.401%;
+  width: 81.954%;
+  height: 58.645%;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.dynamic-frame-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dynamic-frame-overlay-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Lightbox frame specific customization to fit container nicely */
+.lightbox-frame {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+

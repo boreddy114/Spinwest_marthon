@@ -24,6 +24,46 @@ const SpineWestKioskLogo = ({ size = 32 }) => (
   </div>
 );
 
+const drawImageCoverWithZoom = (ctx, img, targetX, targetY, targetW, targetH, zoom = 1, facingUser = false) => {
+  const imgW = img.videoWidth || img.naturalWidth || img.width;
+  const imgH = img.videoHeight || img.naturalHeight || img.height;
+  
+  // Apply zoom to the image size first
+  const zoomedW = imgW / zoom;
+  const zoomedH = imgH / zoom;
+  const zoomedX = (imgW - zoomedW) / 2;
+  const zoomedY = (imgH - zoomedH) / 2;
+  
+  const targetAspect = targetW / targetH;
+  const zoomedAspect = zoomedW / zoomedH;
+  
+  let srcX = zoomedX;
+  let srcY = zoomedY;
+  let srcW = zoomedW;
+  let srcH = zoomedH;
+  
+  if (zoomedAspect > targetAspect) {
+    // Zoomed image is wider than target, crop left/right
+    srcW = zoomedH * targetAspect;
+    srcX = zoomedX + (zoomedW - srcW) / 2;
+  } else {
+    // Zoomed image is taller than target, crop top/bottom
+    srcH = zoomedW / targetAspect;
+    srcY = zoomedY + (zoomedH - srcH) / 2;
+  }
+  
+  ctx.save();
+  if (facingUser) {
+    ctx.translate(ctx.canvas.width, 0);
+    ctx.scale(-1, 1);
+    const mirroredX = ctx.canvas.width - targetX - targetW;
+    ctx.drawImage(img, srcX, srcY, srcW, srcH, mirroredX, targetY, targetW, targetH);
+  } else {
+    ctx.drawImage(img, srcX, srcY, srcW, srcH, targetX, targetY, targetW, targetH);
+  }
+  ctx.restore();
+};
+
 export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }) {
   const [facingMode, setFacingMode] = useState('environment');
   const [capturedPhotos, setCapturedPhotos] = useState([]);
@@ -34,6 +74,16 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const frameImgRef = useRef(null);
+
+  // Preload transparent frame image
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/frames/PHOTOFRAME_transparent.png';
+    img.onload = () => {
+      frameImgRef.current = img;
+    };
+  }, []);
 
   // Auto camera startup/cleanup based on preview state
   useEffect(() => {
@@ -72,29 +122,27 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
     const video = videoRef.current;
     const canvas = canvasRef.current;
     
-    // Size canvas to video stream resolution
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // Set canvas dimensions to exactly the frame dimensions
+    canvas.width = 1402;
+    canvas.height = 1122;
     const ctx = canvas.getContext('2d');
-    
-    // Mirror front camera frames so text/layout is natural
-    if (facingMode === 'user') {
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
-    }
 
-    // Zoom crop boundaries
-    const sourceWidth = video.videoWidth / zoom;
-    const sourceHeight = video.videoHeight / zoom;
-    const sourceX = (video.videoWidth - sourceWidth) / 2;
-    const sourceY = (video.videoHeight - sourceHeight) / 2;
-
-    ctx.drawImage(
+    // 1. Draw the photo inside the cutout area (slightly larger to bleed)
+    // Cutout coordinates: x=125, y=285, w=1149, h=658
+    // Let's add 2px of bleed on each side to prevent thin lines
+    drawImageCoverWithZoom(
+      ctx, 
       video, 
-      sourceX, sourceY, sourceWidth, sourceHeight,
-      0, 0, canvas.width, canvas.height
+      123, 283, 1153, 662, 
+      zoom, 
+      facingMode === 'user'
     );
     
+    // 2. Draw the transparent frame overlay on top
+    if (frameImgRef.current) {
+      ctx.drawImage(frameImgRef.current, 0, 0, 1402, 1122);
+    }
+
     const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
     setCapturedPhotos(prev => [...prev, dataUrl]);
   };

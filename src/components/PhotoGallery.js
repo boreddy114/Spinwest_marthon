@@ -10,7 +10,7 @@ export default function PhotoGallery({ refreshTrigger }) {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const res = await fetch('/api/photos');
+        const res = await fetch(`/api/photos?t=${Date.now()}`);
         const data = await res.json();
         if (data.success) {
           setPhotos(data.photos);
@@ -56,8 +56,81 @@ export default function PhotoGallery({ refreshTrigger }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedPhotoIndex, photos.length]);
 
+  // Helper to load image, draw the frame around it, and trigger download
+  const downloadFramedImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; // Prevent CORS tainted canvas errors
+      img.src = url;
+      img.onload = () => {
+        const frameImg = new Image();
+        frameImg.crossOrigin = 'anonymous';
+        frameImg.src = '/frames/PHOTOFRAME_transparent.png';
+        frameImg.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 1402;
+          canvas.height = 1122;
+          const ctx = canvas.getContext('2d');
+
+          // Draw the photo first, scaled to cover the cutout (with 2px bleed)
+          const targetX = 123;
+          const targetY = 283;
+          const targetW = 1153;
+          const targetH = 662;
+
+          const imgW = img.naturalWidth || img.width;
+          const imgH = img.naturalHeight || img.height;
+          const targetAspect = targetW / targetH;
+          const imgAspect = imgW / imgH;
+
+          let srcX = 0;
+          let srcY = 0;
+          let srcW = imgW;
+          let srcH = imgH;
+
+          if (imgAspect > targetAspect) {
+            srcW = imgH * targetAspect;
+            srcX = (imgW - srcW) / 2;
+          } else {
+            srcH = imgW / targetAspect;
+            srcY = (imgH - srcH) / 2;
+          }
+
+          ctx.drawImage(img, srcX, srcY, srcW, srcH, targetX, targetY, targetW, targetH);
+
+          // Draw transparent frame overlay on top
+          ctx.drawImage(frameImg, 0, 0, 1402, 1122);
+
+          try {
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = `steamboat-marathon-framed-${Date.now()}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        };
+        frameImg.onerror = (e) => reject(e);
+      };
+      img.onerror = (e) => reject(e);
+    });
+  };
+
   const handleDownload = async (url) => {
     try {
+      const photo = photos.find(p => p.url === url);
+      // Cutoff time (approx 19:30 UTC / 13:30 Local) to detect old/raw photos
+      const isRaw = photo && photo.time < 1779564600000;
+
+      if (isRaw) {
+        await downloadFramedImage(url);
+        return;
+      }
+
       if (url.startsWith('data:')) {
         const link = document.createElement('a');
         link.href = url;
@@ -81,6 +154,22 @@ export default function PhotoGallery({ refreshTrigger }) {
     } catch (err) {
       console.error("Download failed, falling back to opening in a new tab", err);
       window.open(url, '_blank');
+    }
+  };
+
+  const handleImageError = async (photoUrl) => {
+    // Remove from local state immediately
+    setPhotos(current => current.filter(p => p.url !== photoUrl));
+    
+    // Call DELETE API to remove stale DB entry
+    try {
+      await fetch('/api/photos', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: photoUrl })
+      });
+    } catch (err) {
+      console.error("Failed to delete broken photo from DB:", err);
     }
   };
 
@@ -119,14 +208,29 @@ export default function PhotoGallery({ refreshTrigger }) {
             key={i} 
             className="gallery-card"
             onClick={() => setSelectedPhotoIndex(i)}
+            style={photo.time < 1779564600000 ? { padding: 0, height: 'auto', display: 'block' } : {}}
           >
-            <img 
-              src={photo.url} 
-              alt="Steamboat Marathon race moment" 
-              className="gallery-card-img"
-              loading="lazy" 
-              onError={() => setPhotos(current => current.filter(p => p.url !== photo.url))}
-            />
+            {photo.time < 1779564600000 ? (
+              <div className="dynamic-souvenir-frame">
+                <div className="dynamic-frame-image-container">
+                  <img 
+                    src={photo.url} 
+                    alt="Steamboat Springs Marathon" 
+                    className="dynamic-frame-img" 
+                    onError={() => handleImageError(photo.url)}
+                  />
+                </div>
+                <img src="/frames/PHOTOFRAME_transparent.png" className="dynamic-frame-overlay-img" alt="Souvenir Frame" />
+              </div>
+            ) : (
+              <img 
+                src={photo.url} 
+                alt="Steamboat Marathon race moment" 
+                className="gallery-card-img"
+                loading="lazy" 
+                onError={() => handleImageError(photo.url)}
+              />
+            )}
             <div className="gallery-card-overlay">
               <span className="overlay-action-btn">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
@@ -188,8 +292,35 @@ export default function PhotoGallery({ refreshTrigger }) {
             </div>
             
             <div className="lightbox-body">
-              <div className="lightbox-image-wrapper">
-                <img src={photos[selectedPhotoIndex].url} alt="Marathon runner" className="lightbox-image" />
+              <div className="lightbox-image-wrapper" style={{ width: '100%', maxWidth: '720px', background: 'transparent', border: 'none' }}>
+                {photos[selectedPhotoIndex].time < 1779564600000 ? (
+                  <div className="dynamic-souvenir-frame lightbox-frame" style={{ width: '100%', borderRadius: '12px' }}>
+                    <div className="dynamic-frame-image-container">
+                      <img 
+                        src={photos[selectedPhotoIndex].url} 
+                        alt="Steamboat Springs Marathon" 
+                        className="dynamic-frame-img" 
+                        onError={() => {
+                          const badUrl = photos[selectedPhotoIndex].url;
+                          setSelectedPhotoIndex(null);
+                          handleImageError(badUrl);
+                        }}
+                      />
+                    </div>
+                    <img src="/frames/PHOTOFRAME_transparent.png" className="dynamic-frame-overlay-img" alt="Souvenir Frame" />
+                  </div>
+                ) : (
+                  <img 
+                    src={photos[selectedPhotoIndex].url} 
+                    alt="Marathon runner" 
+                    className="lightbox-image" 
+                    onError={() => {
+                      const badUrl = photos[selectedPhotoIndex].url;
+                      setSelectedPhotoIndex(null);
+                      handleImageError(badUrl);
+                    }}
+                  />
+                )}
               </div>
 
               {/* Premium info panel */}
