@@ -162,7 +162,6 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
                 <span className="kiosk-series-title" style={{ fontSize: '0.8rem', fontWeight: '800', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.05em', color: 'var(--color-gold)' }}>STEAMBOAT RUNNING SERIES</span>
               </div>
               <div className="kiosk-header-divider" style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
-              {/* Spine West Logo */}
               <div className="kiosk-header-logo">
                 <SpineWestKioskLogo />
               </div>
@@ -174,8 +173,14 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
                 className="kiosk-btn"
                 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 2a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12a9 9 0 0 0-9-9 9.7 9.7 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                  <path d="M3 12a9 9 0 0 0 9 9 9.7 9.7 0 0 0 6.74-2.74L21 16" />
+                  <path d="M21 21v-5h-5" />
+                  <path d="M15 10h-6a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z" fill="currentColor" />
+                  <circle cx="12" cy="13" r="1.5" fill="#1b2636" stroke="none" />
+                  <path d="M12 9v1" stroke="currentColor" strokeWidth="1" />
                 </svg>
                 <span className="kiosk-btn-text">Flip</span>
               </button>
@@ -226,7 +231,14 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
             {capturedPhotos.length > 0 && (
               <div className="upload-queue-bar">
                 {capturedPhotos.map((p, i) => (
-                  <img key={i} src={p} className="queue-thumbnail" alt="thumbnail" />
+                  <img 
+                    key={i} 
+                    src={p} 
+                    className="queue-thumbnail" 
+                    alt="thumbnail" 
+                    onClick={() => setIsReviewing(true)}
+                    style={{ cursor: 'pointer' }}
+                  />
                 ))}
                 <button 
                   onClick={() => setIsReviewing(true)}
@@ -275,14 +287,17 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
               ))}
             </div>
 
-            <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
+            <div className="review-actions-wrapper">
               <button 
                 type="button" 
                 onClick={() => setIsReviewing(false)} 
                 disabled={isProcessing} 
                 className="kiosk-btn"
-                style={{ padding: '0.9rem 2rem', fontSize: '1.05rem', borderRadius: '30px' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
               >
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
                 Take More
               </button>
               <button 
@@ -290,9 +305,24 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
                 onClick={handleUploadAll} 
                 disabled={isProcessing} 
                 className="kiosk-btn primary"
-                style={{ padding: '0.9rem 2.5rem', fontSize: '1.05rem', borderRadius: '30px', flexGrow: 1 }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
               >
-                {isProcessing ? 'Uploading to Gallery...' : `Upload ${capturedPhotos.length} ${capturedPhotos.length === 1 ? 'Photo' : 'Photos'} to Gallery`}
+                {isProcessing ? (
+                  <>
+                    <svg className="animate-spin" width="18" height="18" fill="none" viewBox="0 0 24 24">
+                      <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Uploading...
+                  </>
+                ) : (
+                  <>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    Upload {capturedPhotos.length} {capturedPhotos.length === 1 ? 'Photo' : 'Photos'}
+                  </>
+                )}
               </button>
             </div>
             
