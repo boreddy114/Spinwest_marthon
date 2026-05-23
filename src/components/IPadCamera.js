@@ -159,9 +159,9 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
               {/* Steamboat Springs Running Series Badge */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 179, 0, 0.15)', border: '1px solid rgba(255, 179, 0, 0.3)', padding: '6px 12px', borderRadius: '20px' }}>
                 <span style={{ fontSize: '1.1rem' }}>⛰️</span>
-                <span style={{ fontSize: '0.8rem', fontWeight: '800', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.05em', color: 'var(--color-gold)' }}>STEAMBOAT RUNNING SERIES</span>
+                <span className="kiosk-series-title" style={{ fontSize: '0.8rem', fontWeight: '800', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.05em', color: 'var(--color-gold)' }}>STEAMBOAT RUNNING SERIES</span>
               </div>
-              <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
+              <div className="kiosk-header-divider" style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
               {/* Spine West Logo */}
               <div className="kiosk-header-logo">
                 <SpineWestKioskLogo />
@@ -175,12 +175,19 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
                 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M4 2a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
                 </svg>
-                Flip
+                <span className="kiosk-btn-text">Flip</span>
               </button>
-              <button onClick={onClose} className="kiosk-btn primary">
-                Finish & Exit
+              <button 
+                onClick={onClose} 
+                className="kiosk-btn primary"
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ display: 'inline-block' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span className="kiosk-btn-text">Finish & Exit</span>
               </button>
             </div>
           </div>
