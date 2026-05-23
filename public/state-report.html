@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO4Kids Resource Fair - Technical Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            border-top: 8px solid #0F2046; /* Navy color from app */
+        }
+        h1 {
+            color: #0F2046;
+            font-size: 28px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #49c4b7; /* Teal color from app */
+            font-size: 20px;
+            margin-top: 40px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #374151;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #4b5563;
+        }
+        ul {
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            color: #4b5563;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+        .billing-table th, .billing-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .billing-table th {
+            background-color: #f9fafb;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .billing-table .total-row {
+            font-weight: 700;
+            background-color: #f3f4f6;
+        }
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+        .developer-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .developer-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #0f172a;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .contact-info a {
+            color: #0284c7;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        .print-btn {
+            display: inline-block;
+            background-color: #0F2046;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            float: right;
+        }
+        .print-btn:hover {
+            background-color: #1e3a8a;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; width: 100%; max-width: 100%; border-top: none; }
+            .print-btn { display: none; }
+            @page { margin: 2cm; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+        <h1>CO4Kids Resource Fair<br><span style="font-size: 18px; color: #6b7280; font-weight: normal;">Technical Architecture & Infrastructure Report</span></h1>
+        
+        <p><strong>Prepared For:</strong> State of Colorado / CO4Kids Organization</p>
+        <p><strong>Date:</strong> April 25, 2026</p>
+
+        <h2>1. Executive Summary</h2>
+        <p>This document outlines the technical infrastructure, software architecture, and cloud billing requirements for the custom CO4Kids Photo Kiosk application developed specifically for the Resource Fair. The application is designed to securely capture high-quality event photos via iPad/Mobile devices, upload them efficiently to a cloud database, and deliver them directly to attendees' inboxes with high deliverability rates.</p>
+
+        <h2>2. Technical Architecture</h2>
+        <p>The application was built using modern, reliable, and scalable web technologies to guarantee a seamless experience for both attendees and event volunteers.</p>
+        
+        <h3>Frontend Framework: Next.js (React)</h3>
+        <ul>
+            <li>Provides a fast, responsive, and application-like experience directly in the web browser.</li>
+            <li>Integrates directly with the device's native camera hardware through modern WebRTC APIs, supporting dynamic camera flipping and live digital zooming.</li>
+            <li>Includes a dedicated "Volunteer Mode" to rapidly capture and securely store event memories without bottlenecking the attendee line.</li>
+        </ul>
+
+        <h3>Backend Storage: Supabase</h3>
+        <ul>
+            <li>Acts as the primary secure database and object storage pipeline.</li>
+            <li>Instantly processes base64 image strings from the camera hardware, converts them into optimized JPEG files, and generates secure public URLs for the event gallery mapping.</li>
+        </ul>
+
+        <h3>Mail Delivery Pipeline: NodeMailer & State SMTP</h3>
+        <ul>
+            <li>To ensure photos do not get flagged as spam or phishing attempts, the application's outbound email pipeline was explicitly programmed to authenticate directly with official <code>@state.co.us</code> credentials.</li>
+            <li>The system dynamically constructs HTML emails containing the attendees' photos, effectively bypassing automated spam filters that traditionally block automated photo attachments.</li>
+        </ul>
+
+        <h2>3. Cloud Infrastructure & Billing Justification</h2>
+        <p>To safely handle the high volume of traffic, high-resolution photo uploads, and concurrent user sessions expected during the live Resource Fair, the underlying cloud infrastructure required upgrading to Enterprise/Pro tiers. Free tiers on cloud providers impose strict rate limits and storage caps that would disrupt the event.</p>
+
+        <table class="billing-table">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Plan</th>
+                    <th>Cost</th>
+                    <th>Purpose & Necessity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Vercel</strong></td>
+                    <td>Pro Plan</td>
+                    <td>$20.00</td>
+                    <td>Hosts the foundational application and Edge Functions. The Pro plan guarantees elastic auto-scaling under heavy event traffic, ensuring zero throttling, zero offline queues, and enhanced security.</td>
+                </tr>
+                <tr>
+                    <td><strong>Supabase</strong></td>
+                    <td>Pro Plan</td>
+                    <td>$25.00</td>
+                    <td>Handles all image storage and database logging. Upgrading to Pro expands the persistent file storage ceiling to 100 GB (accommodating tens of thousands of high-quality event photos) preventing the kiosk from pausing or rejecting uploads due to storage exhaustion mid-event.</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="2" style="text-align: right;">Total Required Infrastructure Spend:</td>
+                    <td>$45.00 / month</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <div class="developer-card">
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 5px;">Developed & Maintained By</div>
+                <div class="developer-name">Sai Kiran Reddy Boreddy (Bo)</div>
+                <div class="contact-info">
+                    <div><strong>Website:</strong> <a href="https://www.boresearcher.com/" target="_blank">https://www.boresearcher.com/</a></div>
+                    <div><strong>Email:</strong> <a href="mailto:bsk.reddy47@gmail.com">bsk.reddy47@gmail.com</a></div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #9ca3af; text-align: center; font-size: 12px;">This document was automatically generated by the development environment upon the completion of the production infrastructure setup.</p>
+        </div>
+    </div>
+</body>
+</html>
