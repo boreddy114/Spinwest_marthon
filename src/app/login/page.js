@@ -7,9 +7,12 @@ import Cookies from 'js-cookie';
 const SpineWestLogo = ({ size = 42 }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
     <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="60" cy="24" r="9" fill="#70b62c" />
-      <path d="M25 50 C45 35, 75 35, 95 50" stroke="#005bb7" strokeWidth="9" strokeLinecap="round" fill="none" />
-      <path d="M48 44 C48 68, 80 84, 98 62" stroke="#70b62c" strokeWidth="9" strokeLinecap="round" fill="none" />
+      {/* Head: Lime green circle */}
+      <circle cx="50" cy="22" r="11" fill="#8cc63f" />
+      {/* Upper body/Arms: Blue swoop */}
+      <path d="M 5 45 C 35 48, 70 30, 115 15 C 80 44, 45 55, 5 45 Z" fill="#105aa3" />
+      {/* Lower body/Leg: Green swoop */}
+      <path d="M 78 41 C 75 48, 65 60, 56 75 C 46 90, 48 105, 58 115 C 50 110, 42 95, 50 80 C 58 65, 70 52, 78 41 Z" fill="#8cc63f" />
     </svg>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ fontSize: `${size * 0.038}rem`, fontWeight: '800', lineHeight: '1.05', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.03em' }}>
