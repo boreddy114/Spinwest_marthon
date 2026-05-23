@@ -130,29 +130,82 @@ export default function Home() {
 
         {/* Supporting Sponsors Section */}
         <div style={{ marginTop: '2rem', marginBottom: '2.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
-          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-text-muted-light)', marginBottom: '1.25rem', fontWeight: '800' }}>
-            Steamboat Springs Marathon Partners & Sponsors
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px 20px', opacity: 0.9 }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              Alpine Bank <span style={{ fontSize: '0.65rem', fontWeight: '600', opacity: 0.6 }}>(Presenting)</span>
-            </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#ffb300', background: 'rgba(255,179,0,0.08)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,179,0,0.15)' }}>
-              Spine West <span style={{ fontSize: '0.65rem', fontWeight: '600', opacity: 0.8 }}>(Photo Sponsor)</span>
-            </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#ffb74d', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              Honey Stinger
-            </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#e0e0e0', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              Smartwool
-            </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#4fc3f7', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              UCHealth YVMC
-            </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#a5d6a7', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              Christy Sports
-            </span>
+          
+          {/* Presenting Sponsor */}
+          <div style={{ marginBottom: '1.75rem' }}>
+            <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-text-muted-light)', marginBottom: '0.75rem', fontWeight: '800' }}>
+              Presenting Sponsor
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <span style={{ fontSize: '1rem', fontWeight: '800', color: 'white', background: 'rgba(255,255,255,0.08)', padding: '8px 24px', borderRadius: '30px', border: '1px solid rgba(255,255,255,0.15)', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+                Alpine Bank
+              </span>
+            </div>
           </div>
+
+          {/* Official Sponsors */}
+          <div style={{ marginBottom: '1.75rem' }}>
+            <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-text-muted-light)', marginBottom: '0.75rem', fontWeight: '800' }}>
+              Official Sponsors
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px 15px' }}>
+              {[
+                "Precision Fuel & Hydration",
+                "Old Town Hot Springs",
+                "Storm Peak Brewing Co.",
+                "UCHealth",
+                "Runna"
+              ].map((s, idx) => (
+                <span key={idx} style={{ fontSize: '0.85rem', fontWeight: '700', color: '#e2e8f0', background: 'rgba(255,255,255,0.06)', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Additional Sponsors */}
+          <div>
+            <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-text-muted-light)', marginBottom: '0.75rem', fontWeight: '800' }}>
+              Additional Sponsors
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px 12px', maxWidth: '900px', margin: '0 auto', opacity: 0.9 }}>
+              {[
+                "Spine West",
+                "Steamboat Ski Resort",
+                "Christy Sports",
+                "Gravity Haus",
+                "T-Mobile",
+                "Select Health",
+                "Bar U Eat",
+                "Revolve",
+                "The Glen Steamboat",
+                "Checkmate Services",
+                "Retreatia",
+                "Elevated Properties",
+                "JSM",
+                "Cooldown",
+                "True North Adventure Lodge",
+                "Elk River Pet & Ranch",
+                "Steamboat Radio"
+              ].map((s, idx) => (
+                <span 
+                  key={idx} 
+                  style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: '600', 
+                    color: s === "Spine West" ? "#ffb300" : "#cbd5e1", 
+                    background: s === "Spine West" ? "rgba(255,179,0,0.06)" : "rgba(255,255,255,0.04)", 
+                    padding: '5px 12px', 
+                    borderRadius: '20px', 
+                    border: s === "Spine West" ? "1px solid rgba(255,179,0,0.15)" : "1px solid rgba(255,255,255,0.05)" 
+                  }}
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
         </div>
 
         <div className="footer-credits">
