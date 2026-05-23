@@ -1,22 +1,20 @@
 "use client";
 import { useState, useRef, useEffect } from 'react';
 
-// Custom Spine West Inline SVG Logo (White version for dark kiosk)
-const SpineWestKioskLogo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="20" r="10" fill="#005bb7" />
-      <path d="M50 35 C40 42, 40 55, 50 62" stroke="#70b62c" strokeWidth="8" strokeLinecap="round" fill="none" />
-      <path d="M50 35 C60 42, 60 55, 50 62" stroke="#005bb7" strokeWidth="8" strokeLinecap="round" fill="none" />
-      <path d="M30 45 C42 43, 45 43, 50 35 C55 43, 58 43, 70 45" stroke="#005bb7" strokeWidth="6" strokeLinecap="round" />
-      <path d="M32 85 C42 74, 45 70, 50 62 C55 70, 58 74, 68 85" stroke="#70b62c" strokeWidth="6" strokeLinecap="round" />
+// Custom Spine West Brand Logo for Kiosk
+const SpineWestKioskLogo = ({ size = 32 }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="24" r="9" fill="#70b62c" />
+      <path d="M25 50 C45 35, 75 35, 95 50" stroke="#005bb7" strokeWidth="9" strokeLinecap="round" fill="none" />
+      <path d="M48 44 C48 68, 80 84, 98 62" stroke="#70b62c" strokeWidth="9" strokeLinecap="round" fill="none" />
     </svg>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={{ fontSize: '1.25rem', fontWeight: '800', lineHeight: '1.1', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', color: 'white' }}>
+      <div style={{ fontSize: `${size * 0.038}rem`, fontWeight: '800', lineHeight: '1.05', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.03em', color: 'white' }}>
         <span>SPINE</span>
-        <span style={{ color: '#70b62c', marginLeft: '3px' }}>WEST</span>
+        <span style={{ color: '#70b62c', marginLeft: '2px' }}>WEST</span>
       </div>
-      <div style={{ fontSize: '0.45rem', fontWeight: '700', letterSpacing: '0.1em', color: '#94a3b8', textTransform: 'uppercase', marginTop: '1px' }}>
+      <div style={{ fontSize: `${size * 0.013}rem`, fontWeight: '700', letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase', marginTop: '1px' }}>
         Kiosk Portal
       </div>
     </div>

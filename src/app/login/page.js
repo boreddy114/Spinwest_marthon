@@ -3,22 +3,20 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
-// Custom Spine West Inline SVG Logo
-const SpineWestLogo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-    <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="20" r="10" fill="#005bb7" />
-      <path d="M50 35 C40 42, 40 55, 50 62" stroke="#70b62c" strokeWidth="8" strokeLinecap="round" fill="none" />
-      <path d="M50 35 C60 42, 60 55, 50 62" stroke="#005bb7" strokeWidth="8" strokeLinecap="round" fill="none" />
-      <path d="M30 45 C42 43, 45 43, 50 35 C55 43, 58 43, 70 45" stroke="#005bb7" strokeWidth="6" strokeLinecap="round" />
-      <path d="M32 85 C42 74, 45 70, 50 62 C55 70, 58 74, 68 85" stroke="#70b62c" strokeWidth="6" strokeLinecap="round" />
+// Custom Spine West Brand Logo
+const SpineWestLogo = ({ size = 42 }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="24" r="9" fill="#70b62c" />
+      <path d="M25 50 C45 35, 75 35, 95 50" stroke="#005bb7" strokeWidth="9" strokeLinecap="round" fill="none" />
+      <path d="M48 44 C48 68, 80 84, 98 62" stroke="#70b62c" strokeWidth="9" strokeLinecap="round" fill="none" />
     </svg>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={{ fontSize: '1.5rem', fontWeight: '800', lineHeight: '1.1', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em' }}>
+      <div style={{ fontSize: `${size * 0.038}rem`, fontWeight: '800', lineHeight: '1.05', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.03em' }}>
         <span style={{ color: '#005bb7' }}>SPINE</span>
-        <span style={{ color: '#70b62c', marginLeft: '4px' }}>WEST</span>
+        <span style={{ color: '#70b62c', marginLeft: '2px' }}>WEST</span>
       </div>
-      <div style={{ fontSize: '0.55rem', fontWeight: '700', letterSpacing: '0.12em', color: '#94a3b8', textTransform: 'uppercase', marginTop: '2px' }}>
+      <div style={{ fontSize: `${size * 0.013}rem`, fontWeight: '700', letterSpacing: '0.08em', color: '#64748b', textTransform: 'uppercase', marginTop: '1px' }}>
         Spine, Orthopedics & Medicine
       </div>
     </div>
@@ -47,11 +45,11 @@ export default function Login() {
     <div className="login-screen-wrapper">
       <div className="login-card animate-fade-in">
         <div className="login-header-logo">
-          <SpineWestLogo />
+          <SpineWestLogo size={42} />
         </div>
         <h1 className="login-card-title">Volunteer Access</h1>
         <p className="login-card-subtitle">
-          Please enter the volunteer passcode to unlock the camera kiosk portal.
+          Enter the volunteer passcode to access the camera kiosk.
         </p>
         
         <form onSubmit={handleLogin}>
@@ -73,7 +71,7 @@ export default function Login() {
         </form>
         
         <div style={{ marginTop: '2rem', borderTop: '1px solid #edf2f7', paddingTop: '1.25rem' }}>
-          <a href="/" style={{ color: 'var(--color-blue)', fontSize: '0.9rem', fontWeight: '600' }}>
+          <a href="/" style={{ color: 'var(--color-forest)', fontSize: '0.9rem', fontWeight: '700' }}>
             &larr; Back to Runner's Gallery
           </a>
         </div>
