@@ -16,11 +16,11 @@ const SpineWestLogo = ({ size = 42 }) => (
     </svg>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ fontSize: `${size * 0.038}rem`, fontWeight: '800', lineHeight: '1.05', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.03em' }}>
-        <span style={{ color: '#005bb7' }}>SPINE</span>
-        <span style={{ color: '#70b62c', marginLeft: '2px' }}>WEST</span>
+        <span style={{ color: '#105aa3' }}>SPINE</span>
+        <span style={{ color: '#8cc63f', marginLeft: '2px' }}>WEST</span>
       </div>
-      <div style={{ fontSize: `${size * 0.013}rem`, fontWeight: '700', letterSpacing: '0.08em', color: '#64748b', textTransform: 'uppercase', marginTop: '1px' }}>
-        Spine, Orthopedics & Medicine
+      <div style={{ fontSize: `${size * 0.013}rem`, fontWeight: '700', letterSpacing: '0.08em', color: '#105aa3', textTransform: 'uppercase', marginTop: '1px' }}>
+        SPINE, ORTHOPEDICS & REGENERATIVE MEDICINE
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ export default function Login() {
         </div>
         <h1 className="login-card-title">Volunteer Access</h1>
         <p className="login-card-subtitle">
-          Enter the volunteer passcode to access the camera kiosk.
+          Enter the volunteer passcode to access the Spine West camera kiosk.
         </p>
         
         <form onSubmit={handleLogin}>

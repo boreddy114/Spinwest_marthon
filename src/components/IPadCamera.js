@@ -15,10 +15,10 @@ const SpineWestKioskLogo = ({ size = 32 }) => (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ fontSize: `${size * 0.038}rem`, fontWeight: '800', lineHeight: '1.05', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.03em', color: 'white' }}>
         <span>SPINE</span>
-        <span style={{ color: '#70b62c', marginLeft: '2px' }}>WEST</span>
+        <span style={{ color: '#8cc63f', marginLeft: '2px' }}>WEST</span>
       </div>
-      <div style={{ fontSize: `${size * 0.013}rem`, fontWeight: '700', letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase', marginTop: '1px' }}>
-        Kiosk Portal
+      <div style={{ fontSize: `${size * 0.012}rem`, fontWeight: '700', letterSpacing: '0.05em', color: '#94a3b8', textTransform: 'uppercase', marginTop: '1px' }}>
+        SPINE, ORTHOPEDICS & REGENERATIVE MEDICINE
       </div>
     </div>
   </div>
@@ -164,7 +164,7 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
 
   const handleUploadAll = async () => {
     if (capturedPhotos.length === 0) return;
-    setStatus('Uploading photos to Runner\'s Gallery...');
+    setStatus('Uploading photos to Spine West Gallery...');
     setIsProcessing(true);
 
     try {
@@ -204,10 +204,10 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
           {/* Header */}
           <div className="kiosk-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              {/* Steamboat Springs Running Series Badge */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 179, 0, 0.15)', border: '1px solid rgba(255, 179, 0, 0.3)', padding: '6px 12px', borderRadius: '20px' }}>
-                <span style={{ fontSize: '1.1rem' }}>⛰️</span>
-                <span className="kiosk-series-title" style={{ fontSize: '0.8rem', fontWeight: '800', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.05em', color: 'var(--color-gold)' }}>STEAMBOAT RUNNING SERIES</span>
+              {/* Spine West Photo Kiosk Badge */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(140, 198, 63, 0.15)', border: '1px solid rgba(140, 198, 63, 0.3)', padding: '6px 12px', borderRadius: '20px' }}>
+                <span style={{ fontSize: '1.1rem' }}>📸</span>
+                <span className="kiosk-series-title" style={{ fontSize: '0.8rem', fontWeight: '800', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.05em', color: '#8cc63f' }}>SPINE WEST PHOTO KIOSK</span>
               </div>
               <div className="kiosk-header-divider" style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
               <div className="kiosk-header-logo">
@@ -316,7 +316,7 @@ export default function IPadCamera({ mode = 'volunteer', onPhotoTaken, onClose }
           <div className="review-card-container animate-fade-in">
             <h2 style={{ color: 'white', marginBottom: '8px', fontFamily: "'Outfit', sans-serif" }}>Review Captures</h2>
             <p style={{ color: 'var(--color-text-muted-light)', marginBottom: '2.5rem' }}>
-              Confirm photos before adding them to the public Runner's Gallery.
+              Confirm photos before adding them to the public Spine West Gallery.
             </p>
 
             <div className="review-thumbnails-row">

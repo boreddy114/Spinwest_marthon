@@ -105,7 +105,7 @@ export default function PhotoGallery({ refreshTrigger }) {
             const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
             const link = document.createElement('a');
             link.href = dataUrl;
-            link.download = `steamboat-marathon-framed-${Date.now()}.jpg`;
+            link.download = `spinewest-gallery-photo-framed-${Date.now()}.jpg`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -134,7 +134,7 @@ export default function PhotoGallery({ refreshTrigger }) {
       if (url.startsWith('data:')) {
         const link = document.createElement('a');
         link.href = url;
-        link.download = `steamboat-marathon-${Date.now()}.jpg`;
+        link.download = `spinewest-photo-${Date.now()}.jpg`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -146,7 +146,7 @@ export default function PhotoGallery({ refreshTrigger }) {
       const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = `steamboat-marathon-${Date.now()}.jpg`;
+      link.download = `spinewest-photo-${Date.now()}.jpg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -194,7 +194,7 @@ export default function PhotoGallery({ refreshTrigger }) {
     return (
       <div className="text-center mt-4 p-5" style={{ background: '#fff', borderRadius: '16px', color: 'var(--color-text-muted-dark)', border: '1px solid rgba(0,0,0,0.05)', boxShadow: 'var(--shadow-sm)' }}>
         <h3 style={{ marginBottom: '1rem', color: 'var(--color-slate-black)' }}>No photos uploaded yet!</h3>
-        <p>Volunteers, please log in to upload race day pictures.</p>
+        <p>Volunteers, please log in to upload pictures.</p>
       </div>
     );
   }
@@ -215,7 +215,7 @@ export default function PhotoGallery({ refreshTrigger }) {
                 <div className="dynamic-frame-image-container">
                   <img 
                     src={photo.url} 
-                    alt="Steamboat Springs Marathon" 
+                    alt="Spine West Event Photo" 
                     className="dynamic-frame-img" 
                     onError={() => handleImageError(photo.url)}
                   />
@@ -225,7 +225,7 @@ export default function PhotoGallery({ refreshTrigger }) {
             ) : (
               <img 
                 src={photo.url} 
-                alt="Steamboat Marathon race moment" 
+                alt="Spine West Event Photo" 
                 className="gallery-card-img"
                 loading="lazy" 
                 onError={() => handleImageError(photo.url)}
@@ -281,7 +281,7 @@ export default function PhotoGallery({ refreshTrigger }) {
             <div className="lightbox-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ fontSize: '1.25rem' }}>⛰️</span>
-                <h3 className="lightbox-title" style={{ fontSize: '1.15rem' }}>Steamboat Marathon 2026</h3>
+                <h3 className="lightbox-title" style={{ fontSize: '1.15rem' }}>Spine West Gallery</h3>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span className="lightbox-photo-counter" style={{ fontSize: '0.85rem', color: 'var(--color-text-muted-light)', fontFamily: "'Outfit', sans-serif", fontWeight: '600' }}>
@@ -298,7 +298,7 @@ export default function PhotoGallery({ refreshTrigger }) {
                     <div className="dynamic-frame-image-container">
                       <img 
                         src={photos[selectedPhotoIndex].url} 
-                        alt="Steamboat Springs Marathon" 
+                        alt="Spine West Event Photo" 
                         className="dynamic-frame-img" 
                         onError={() => {
                           const badUrl = photos[selectedPhotoIndex].url;
@@ -312,7 +312,7 @@ export default function PhotoGallery({ refreshTrigger }) {
                 ) : (
                   <img 
                     src={photos[selectedPhotoIndex].url} 
-                    alt="Marathon runner" 
+                    alt="Spine West Event Photo" 
                     className="lightbox-image" 
                     onError={() => {
                       const badUrl = photos[selectedPhotoIndex].url;
@@ -339,7 +339,7 @@ export default function PhotoGallery({ refreshTrigger }) {
                 {/* Sponsor badge */}
                 <div className="lightbox-sponsor-badge" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
                   <span className="sponsor-badge-label" style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--color-text-muted-light)', fontWeight: '800', letterSpacing: '0.08em', fontFamily: "'Outfit', sans-serif" }}>
-                    Photo Compliments of
+                    Presented by
                   </span>
                   <div className="sponsor-badge-logo-container" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', padding: '5px 12px', borderRadius: '20px' }}>
                     <svg width="18" height="18" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -348,7 +348,7 @@ export default function PhotoGallery({ refreshTrigger }) {
                       <path d="M 78 41 C 75 48, 65 60, 56 75 C 46 90, 48 105, 58 115 C 50 110, 42 95, 50 80 C 58 65, 70 52, 78 41 Z" fill="#8cc63f" />
                     </svg>
                     <span className="sponsor-badge-brand" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '0.85rem', fontWeight: '800', color: 'white', letterSpacing: '-0.02em' }}>
-                      SPINE<span style={{ color: '#70b62c', marginLeft: '1px' }}>WEST</span>
+                      SPINE<span style={{ color: '#8cc63f', marginLeft: '1px' }}>WEST</span>
                     </span>
                   </div>
                 </div>
